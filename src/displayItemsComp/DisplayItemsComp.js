@@ -5,7 +5,9 @@ let fakeData = [{ name:"John1", age:30, car:null },{ name:"John2", age:30, car:n
 
 function DisplayItems () {
     const [data, setData] = useState(fakeData)
-    const [text, setText] = useState('abc');
+    const [text, setText] = useState('abc')
+
+    
 
     axios.get('/shipments', {
         headers: {
