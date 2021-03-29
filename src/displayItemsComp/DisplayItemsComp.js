@@ -4,35 +4,12 @@ import {useSelector, useDispatch} from 'react-redux'
 import CreateNew from '../createNew/CreateNew'
 import fetchFunction from '../apiCalls/fetchFunction'
 
-
-let fakeData = [{ name:"John1", age:30, car:null },{ name:"John2", age:30, car:null },{ name:"John3", age:30, car:null }]
-
 function DisplayItems () {
-    // const [data, setData] = useState(fakeData)
     const [text, setText] = useState('abc')
 
     const arrTrack = useSelector(state => state.arrTracking)
     console.log('state', arrTrack)
     const dispatch = useDispatch()
-
-    useEffect (() => {
-        // fetchFunction('/shipments').then(
-        //     (rep)=>{
-        //         console.log('useEffect', rep)
-        //     }
-        // )
-    })
-
-    function textChange(event) {
-        console.log('what', event.target.value)
-        setText(event.target.value)
-        // setText(event)
-        event.preventDefault()
-    }
-
-    function onClickSubmit () {
-        dispatch({type: "newTracking", payload: text})
-    }
     
     return (
         <div>
