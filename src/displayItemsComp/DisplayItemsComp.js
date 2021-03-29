@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react"
-import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
 import CreateNew from '../createNew/CreateNew'
 import fetchFunction from '../apiCalls/fetchFunction'
