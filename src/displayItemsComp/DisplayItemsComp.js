@@ -1,47 +1,56 @@
-import React, {setState, useState} from "react"
+import React, {useState, useEffect} from "react"
 import axios from 'axios'
+import {useSelector, useDispatch} from 'react-redux'
+import CreateNew from '../createNew/CreateNew'
+import fetchFunction from '../apiCalls/fetchFunction'
+
 
 let fakeData = [{ name:"John1", age:30, car:null },{ name:"John2", age:30, car:null },{ name:"John3", age:30, car:null }]
 
 function DisplayItems () {
-    const [data, setData] = useState(fakeData)
+    // const [data, setData] = useState(fakeData)
     const [text, setText] = useState('abc')
 
-    
+    const arrTrack = useSelector(state => state.arrTracking)
+    console.log('state', arrTrack)
+    const dispatch = useDispatch()
 
-    axios.get('/shipments', {
-        headers: {
-            "DHL-API-Key":'MA2b4CeyE7dS21kedJls5MW83Y7HbIUN' 
-        },params: {
-            "trackingNumber": '6326076223'
-        }
-      })
-    .then(function (response) {
-      // handle success
-      console.log(response);
+    useEffect (() => {
+        // fetchFunction('/shipments').then(
+        //     (rep)=>{
+        //         console.log('useEffect', rep)
+        //     }
+        // )
     })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
 
-    function textChange(e1) {
-        console.log(e1.target)
-        // setText(e1)
-        // preventDefault()
+    function textChange(event) {
+        console.log('what', event.target.value)
+        setText(event.target.value)
+        // setText(event)
+        event.preventDefault()
+    }
+
+    function onClickSubmit () {
+        dispatch({type: "newTracking", payload: text})
     }
     
     return (
-        <div fl>
+        <div>
+            <CreateNew/>
             {
-                fakeData.map((item, index) => {
-                    return <h1 id={index}>{item.name}</h1>
-                })
+                arrTrack.length > 0 ? arrTrack.map((item, index) => {
+                    return (
+                        <div>
+                            <h1 key={index}>{item.id} {item.info[0].estimatedTimeOfDeliveryRemark}</h1>
+                            {
+                                item.info[0].events.map((itm) => {
+                                    return <p>{itm.timestamp} ... {itm.location.address.addressLocality} ... {itm.description}</p>
+                                })
+                            }
+                        </div>
+                        )
+                }) : null
             }
-            <input type="text"  name="name" onChange={(data)=>textChange(data)} />
         </div>
 
     )
