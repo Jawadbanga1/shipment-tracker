@@ -1,10 +1,13 @@
-const initialState = {arrTracking = []}
+const initialState = {arrTracking: []}
 
 function rootReducer (state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case "newTracking": 
-            return {...state, arrTracking: action.payload.newTrackingNum}
+            console.log('newTrack', action.payload, state)
+            return {...state, arrTracking: [...state.arrTracking, {id: action.payload.trackingNum, info: action.payload.info}]} //{...state, arrTracking: action.payload.newTrackingNum}
         default: 
             return state
     }
 }
+
+export default rootReducer
