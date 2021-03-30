@@ -17,7 +17,7 @@ function CreateNew () {
     function onClickSubmit (event) {
         console.log('event', event)
         event.preventDefault()
-        fetchFunction('/shipments', text).then(
+        fetchFunction('https://api-eu.dhl.com/track/shipments', text).then(
             (resp)=>{
                 console.log('useEffect', resp)
                 setApiData(resp.data.shipments)
